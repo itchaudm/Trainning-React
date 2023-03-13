@@ -4,14 +4,19 @@ import { useEffect, useState } from 'react'
 
 const UserTable = ({ group_id, openModal, itemUser }) => {
 
-    const [dataUser, setDataUser] = useState(userData)
+
+    const [items, setItems] = useState([])
+
+    const [first, setFirst] = useState(true)
 
     const handlerOnclickUser = (item) => {
         openModal(item)
     }
 
+
+
     const setInforUser = () => {
-        dataUser.map((item, index) => {
+        const data = items.map((item, index) => {
             if (item.id === itemUser.id) {
                 if (item.first_name !== itemUser.first_name || item.last_name !== itemUser.last_name ||
                     item.birthday !== itemUser.birthday || item.gender !== itemUser.gender
@@ -24,17 +29,30 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
             }
             return item
         })
-        return dataUser
+        console.log("check item ", data);
+        setItems(data)
     }
-    setInforUser()
+    // setInforUser()
 
     useEffect(() => {
 
+        const itemClone = userData.filter(function (el) {
+            return el.group_id == group_id
+        });
 
-        setDataUser(setInforUser())
-    }, [dataUser])
+        setItems(itemClone)
 
+        console.log("a")
+    }, [])
 
+    useEffect(() => {
+
+        if (!first) {
+            setInforUser()
+        }
+
+        setFirst(false)
+    }, [itemUser])
     return (
         <table className='inner-table'>
             <thead>
@@ -50,8 +68,8 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
                 </tr>
             </thead>
             <tbody>
-                {dataUser.map((item, index) => {
-                    return item.group_id === group_id && (
+                {items.map((item, index) => {
+                    return (
 
                         <tr key={index} onClick={() => handlerOnclickUser(item)} >
                             <td>{item.id}</td>
