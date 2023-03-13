@@ -1,0 +1,21 @@
+.inner-table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.inner-table td,
+.inner-table th {
+    border: 1px solid #d6e2ed;
+    text-align: center;
+    padding: 8px;
+    background-color: #fff;
+}
+
+.inner-table tr:nth-child(even) {
+    background-color: #d6e2ed;
+}
+
+.inner-table thead tr th {
+    background-color: #fff;
+}
