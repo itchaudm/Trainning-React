@@ -1,5 +1,5 @@
 import './GroupTable.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from './Modal'
 import UserTable from './UserTable'
 import FormatDate from './FormatDate'
@@ -8,9 +8,8 @@ const GroupTable = () => {
     const [showModal, setShowModal] = useState(false)
     const [user, setUser] = useState('')
     const [selectRow, setSelectRow] = useState('')
-    const [groupData, setGroupData] = useState(FormatDate)
+    const [groupData, setGroupData] = useState([])
     const [itemUser, setItemUser] = useState({})
-    const [check, setCheck] = useState()
 
     const hanldeOnclickGroup = (item, index) => {
         if (item !== selectRow) {
@@ -28,12 +27,14 @@ const GroupTable = () => {
         setShowModal(!showModal)
     }
 
-    const editUser = (itemUser, check) => {
+    const editUser = (itemUser) => {
         setItemUser(itemUser)
-        setCheck(check)
+
     }
 
-
+    useEffect(() => {
+        setGroupData(FormatDate)
+    }, [])
     return (
         <div className="App">
             {
@@ -64,7 +65,7 @@ const GroupTable = () => {
                                 </tr>
                                 {item.id === selectRow &&
                                     <tr key={item.id}>
-                                        <td colSpan="5" style={{ padding: "8px" }}><UserTable group_id={item.id} openModal={openModal} itemUser={itemUser} check={check} /></td>
+                                        <td colSpan="5" style={{ padding: "8px" }}><UserTable group_id={item.id} openModal={openModal} itemUser={itemUser} /></td>
                                     </tr>
                                 }
 
