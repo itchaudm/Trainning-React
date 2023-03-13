@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './Modal.css'
 const Modal = ({ cancel, itemUser, editUser }) => {
     const [firstName, setFirstName] = useState(itemUser.first_name)
@@ -14,7 +14,7 @@ const Modal = ({ cancel, itemUser, editUser }) => {
             last_name: lastName,
             birthday: birthday,
             gender: gender
-        }, true)
+        })
         cancel()
     }
     return (

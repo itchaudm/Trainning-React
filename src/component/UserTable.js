@@ -2,29 +2,37 @@ import './UserTable.css'
 import userData from '../api/users.json'
 import { useEffect, useState } from 'react'
 
-const UserTable = ({ group_id, openModal, itemUser, check }) => {
+const UserTable = ({ group_id, openModal, itemUser }) => {
 
     const [dataUser, setDataUser] = useState(userData)
-    const [checkT, setCheckT] = useState(false)
+
     const handlerOnclickUser = (item) => {
         openModal(item)
     }
 
-    if (check !== checkT) {
-        setCheckT(check)
-    }
-    useEffect(() => {
+    const setInforUser = () => {
         dataUser.map((item, index) => {
             if (item.id === itemUser.id) {
-                if (item.first_name !== itemUser.first_name) {
+                if (item.first_name !== itemUser.first_name || item.last_name !== itemUser.last_name ||
+                    item.birthday !== itemUser.birthday || item.gender !== itemUser.gender
+                ) {
                     item.first_name = itemUser.first_name
+                    item.last_name = itemUser.last_name
+                    item.birthday = itemUser.birthday
+                    item.gender = itemUser.gender
                 }
             }
             return item
         })
+        return dataUser
+    }
+    setInforUser()
 
-        setDataUser(dataUser)
-    }, [check])
+    useEffect(() => {
+
+
+        setDataUser(setInforUser())
+    }, [dataUser])
 
 
     return (
@@ -43,22 +51,20 @@ const UserTable = ({ group_id, openModal, itemUser, check }) => {
             </thead>
             <tbody>
                 {dataUser.map((item, index) => {
-                    if (item.group_id === group_id) {
-                        return (
+                    return item.group_id === group_id && (
 
-                            <tr key={index} onClick={() => handlerOnclickUser(item)} >
-                                <td>{item.id}</td>
-                                <td>{item.first_name}</td>
-                                <td>{item.last_name}</td>
-                                <td>{item.birthday}</td>
-                                <td>{item.gender}</td>
-                                <td>{item.user_name}</td>
-                                <td>{item.password}</td>
-                                <td>{item.group_id}</td>
-                            </tr>
+                        <tr key={index} onClick={() => handlerOnclickUser(item)} >
+                            <td>{item.id}</td>
+                            <td>{item.first_name}</td>
+                            <td>{item.last_name}</td>
+                            <td>{item.birthday}</td>
+                            <td>{item.gender}</td>
+                            <td>{item.user_name}</td>
+                            <td>{item.password}</td>
+                            <td>{item.group_id}</td>
+                        </tr>
+                    )
 
-                        )
-                    }
 
                 })}
 
