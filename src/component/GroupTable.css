@@ -1,0 +1,22 @@
+.outner-table {
+    width: 98%;
+    margin: 20px 16px;
+}
+
+.outner-table,
+th,
+td {
+
+    border: 1px solid white;
+    border-collapse: collapse;
+    font-size: 1rem;
+    padding: 8px;
+    text-align: center;
+}
+
+.outner-table th,
+td {
+    background-color: #d6e2ed;
+}
+
+/* #d6e2ed */

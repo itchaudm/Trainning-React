@@ -1,0 +1,16 @@
+.wrap-tranning-page {
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.wrap-tranning-page .header {
+    background-color: #282c34;
+}
+
+.wrap-tranning-page .header h1 {
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+    font-size: 4.4rem;
+    padding: 2.2rem;
+}
