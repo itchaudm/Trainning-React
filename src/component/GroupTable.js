@@ -1,5 +1,5 @@
 import './GroupTable.css'
-import { useEffect, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Modal from './Modal'
 import UserTable from './UserTable'
 import FormatDate from './FormatDate'
@@ -55,8 +55,8 @@ const GroupTable = () => {
                     {groupData && groupData.map((item, index) => {
 
                         return (
-                            < >
-                                <tr key={index} onClick={() => hanldeOnclickGroup(item.id, index)}>
+                            < Fragment key={index} >
+                                <tr onClick={() => hanldeOnclickGroup(item.id, index)}>
                                     <td>{item.id}</td>
                                     <td>{item.group_name}</td>
                                     <td>{item.requirements}</td>
@@ -64,12 +64,12 @@ const GroupTable = () => {
                                     <td>{item.work_end_time}</td>
                                 </tr>
                                 {item.id === selectRow &&
-                                    <tr key={item.id}>
+                                    <tr >
                                         <td colSpan="5" style={{ padding: "8px" }}><UserTable group_id={item.id} openModal={openModal} itemUser={itemUser} /></td>
                                     </tr>
                                 }
 
-                            </>
+                            </Fragment>
                         )
                     })}
 

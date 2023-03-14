@@ -16,6 +16,7 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
 
 
     const setInforUser = () => {
+        const date_regex = /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
         const data = items.map((item, index) => {
             if (item.id === itemUser.id) {
                 if (item.first_name !== itemUser.first_name || item.last_name !== itemUser.last_name ||
@@ -23,8 +24,14 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
                 ) {
                     item.first_name = itemUser.first_name
                     item.last_name = itemUser.last_name
-                    item.birthday = itemUser.birthday
                     item.gender = itemUser.gender
+                    if (!(date_regex.test(itemUser.birthday))) {
+                        alert("nhập lại ngày tháng")
+                        openModal(item)
+                    } else {
+                        item.birthday = itemUser.birthday
+                    }
+
                 }
             }
             return item
@@ -32,13 +39,12 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
         console.log("check item ", data);
         setItems(data)
     }
-    // setInforUser()
 
     useEffect(() => {
 
-        const itemClone = userData.filter(function (el) {
-            return el.group_id == group_id
-        });
+        const itemClone = userData.filter(el =>
+            el.group_id == group_id
+        );
 
         setItems(itemClone)
 
@@ -46,7 +52,6 @@ const UserTable = ({ group_id, openModal, itemUser }) => {
     }, [])
 
     useEffect(() => {
-
         if (!first) {
             setInforUser()
         }
